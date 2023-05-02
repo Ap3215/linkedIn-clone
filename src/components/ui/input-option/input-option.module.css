@@ -1,0 +1,31 @@
+.input-option{
+    display: flex;
+    align-items: center;
+    margin-top: 1.5rem;
+    color: gray;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.input-option__blue{
+    color:#378fe9; 
+}
+.input-option__green{
+    color:#5f9b41; 
+}
+.input-option__yellow{
+    color:#c37d16; 
+}
+.input-option__orange{
+    color:#e16745; 
+}
+
+.input-option:hover{
+    background-color: white;
+    border-radius: 1rem;
+}
+.input-option > h4{
+     margin-left: .5rem;
+     font-size: 1.4rem;
+     color: gray;
+}
