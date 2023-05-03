@@ -8,7 +8,7 @@ import classes from "./home.module.css";
 
 const Home = () => {
   return (
-    <div className={["home"]}>
+    <div className={classes["home"]}>
       <Header />
       <div className={classes["home__body"]}>
         <Sidebar />
