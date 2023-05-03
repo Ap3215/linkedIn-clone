@@ -8,10 +8,17 @@ import {
   updateProfile,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import classes from "./login.module.css";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const redirectTo = searchParams.get("redirect") || "/";
+  console.log(redirectTo);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -31,6 +38,7 @@ const Login = () => {
             profilePic: userAuth.user.photoURL,
           })
         );
+        navigate(redirectTo);
       })
       .catch((error) => alert(error));
   };

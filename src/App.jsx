@@ -11,44 +11,81 @@ import { useEffect } from "react";
 import { auth } from "./firebase/firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 import Widget from "./components/feature/widget/widget";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import Home from "./pages/home/home";
+import ProtectedRoute from "./components/feature/protected-route/protected-route";
+import Contact from "./pages/contact/contact";
+
+// const App = () => {
+//   const user = useSelector(selectUser);
+//   const userDispatch = useDispatch();
+
+//   useEffect(() => {
+//     onAuthStateChanged(auth, (userAuth) => {
+//       if (userAuth) {
+//         //logged
+//         userDispatch(
+//           login({
+//             email: userAuth.email,
+//             uid: userAuth.uid,
+//             displayName: userAuth.displayName,
+//             photoUrl: userAuth.photoURL,
+//           })
+//         );
+//       } else {
+//         //logout
+//         userDispatch(logout());
+//       }
+//     });
+//   }, []);
+
+//   return (
+//     <div className={classes["app"]}>
+//       <Header />
+//       {!user ? (
+//         <Login />
+//       ) : (
+//         <div className={classes["app__body"]}>
+//           <Sidebar />
+//           <Feed />
+//           <Widget />
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/">
+      <Route
+        path=""
+        element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="login" element={<Login />} />
+      <Route
+        path="contact"
+        element={
+          <ProtectedRoute redirect="/services">
+            <Contact />
+          </ProtectedRoute>
+        }
+      />
+    </Route>
+  )
+);
 
 const App = () => {
-  const user = useSelector(selectUser);
-  const userDispatch = useDispatch();
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (userAuth) => {
-      if (userAuth) {
-        //logged
-        userDispatch(
-          login({
-            email: userAuth.email,
-            uid: userAuth.uid,
-            displayName: userAuth.displayName,
-            photoUrl: userAuth.photoURL,
-          })
-        );
-      } else {
-        //logout
-        userDispatch(logout());
-      }
-    });
-  }, []);
-
-  return (
-    <div className={classes["app"]}>
-      <Header />
-      {!user ? (
-        <Login />
-      ) : (
-        <div className={classes["app__body"]}>
-          <Sidebar />
-          <Feed />
-          <Widget />
-        </div>
-      )}
-    </div>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;
