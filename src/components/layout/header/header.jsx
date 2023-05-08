@@ -24,7 +24,7 @@ const Header = () => {
   };
 
   return (
-    <div className={classes["header"]}>
+    <header className={classes["header"]}>
       <div className={classes["header__left"]}>
         <LinkedInIcon className={classes["header--logo"]} />
 
@@ -41,7 +41,7 @@ const Header = () => {
         <HeaderIcons Icon={NotificationsIcon} title="Notifications" />
         <HeaderIcons onClick={onLogoutHandler} avator={true} title="me" />
       </div>
-    </div>
+    </header>
   );
 };
 
