@@ -1,10 +1,5 @@
 .home{
-    background-color: #f3f2ef;
-    /* display: flex; */
-    flex-direction: column;
-    align-items: center;
-}
-.home__body{
+   
     display: flex; 
     margin-top: 2rem;
     max-width: 120rem;

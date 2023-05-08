@@ -7,8 +7,6 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   signInWithEmailAndPassword,
-  setPersistence,
-  browserSessionPersistence,
 } from "firebase/auth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
@@ -30,27 +28,19 @@ const Login = () => {
   const onLoginHandler = (e) => {
     e.preventDefault();
 
-    setPersistence(auth, browserSessionPersistence).then(() => {
-      // Existing and future Auth states are now persisted in the current
-      // session only. Closing the window would clear any existing state even
-      // if a user forgets to sign out.
-      // ...
-      // New sign-in will be persisted with session persistence.
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userAuth) => {
-          userDispatch(
-            login({
-              email: userAuth.user.email,
-              uid: userAuth.user.uid,
-              displayName: userAuth.user.displayName,
-              profilePic: userAuth.user.photoURL,
-            })
-          );
-          navigate(redirectTo);
-        })
-        .catch((error) => alert(error));
-      return signInWithEmailAndPassword(auth, email, password);
-    });
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userAuth) => {
+        userDispatch(
+          login({
+            email: userAuth.user.email,
+            uid: userAuth.user.uid,
+            displayName: userAuth.user.displayName,
+            profilePic: userAuth.user.photoURL,
+          })
+        );
+        navigate(redirectTo);
+      })
+      .catch((error) => alert(error));
   };
 
   const register = () => {
