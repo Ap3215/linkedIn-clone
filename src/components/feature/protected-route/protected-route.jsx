@@ -1,19 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout, selectUser } from "../../../app/user-slice";
-import {
-  onAuthStateChanged,
-  setPersistence,
-  browserSessionPersistence,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { Navigate, useLocation, useSearchParams } from "react-router-dom";
 import { auth } from "../../../firebase/firebase-config";
 
 const ProtectedRoute = ({ children, redirect = "/login" }) => {
   const { pathname } = useLocation();
-
-  // const [isLoading, setIsLoading] = useState(true);
 
   const lodingRef = useRef(true);
 
@@ -48,8 +41,6 @@ const ProtectedRoute = ({ children, redirect = "/login" }) => {
       }
     });
   }, []);
-
-  console.log("rendered");
 
   if (lodingRef.current) {
     return <p>Loading ...</p>;

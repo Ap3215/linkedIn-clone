@@ -66,7 +66,6 @@ const Login = () => {
           console.log("error", error);
           alert(error.message);
         });
-      console.log("userAuth", userAuth);
     });
   };
   return (
