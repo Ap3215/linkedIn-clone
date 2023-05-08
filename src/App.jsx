@@ -21,13 +21,6 @@ const router = createBrowserRouter(
           </ProtectedRoute>
         }
       />
-
-      <Route path="books">
-        <Route index={true} element={<Login />} />
-        <Route path="hindi" element={<Login />} />
-        <Route path="english" element={<Login />} />
-      </Route>
-
       <Route path="login" element={<Login />} />
       <Route
         path="contact"
