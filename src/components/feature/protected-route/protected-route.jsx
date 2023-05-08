@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout, selectUser } from "../../../app/user-slice";
 import { onAuthStateChanged } from "firebase/auth";
@@ -8,7 +8,8 @@ import { auth } from "../../../firebase/firebase-config";
 const ProtectedRoute = ({ children, redirect = "/login" }) => {
   const { pathname } = useLocation();
 
-  const lodingRef = useRef(true);
+  // const lodingRef = useRef(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const user = useSelector(selectUser);
   const userDispatch = useDispatch();
@@ -20,7 +21,6 @@ const ProtectedRoute = ({ children, redirect = "/login" }) => {
 
   useEffect(() => {
     onAuthStateChanged(auth, (userAuth) => {
-      console.log("userAuth", userAuth);
       if (userAuth) {
         //logged
         userDispatch(
@@ -31,18 +31,18 @@ const ProtectedRoute = ({ children, redirect = "/login" }) => {
             photoUrl: userAuth.photoURL,
           })
         );
-        // setIsLoading(false);
-        lodingRef.current = false;
+        setIsLoading(false);
+        // lodingRef.current = false;
       } else {
         //logout
         userDispatch(logout());
-        // setIsLoading(false);
-        lodingRef.current = false;
+        setIsLoading(false);
+        // lodingRef.current = false;
       }
     });
   }, []);
 
-  if (lodingRef.current) {
+  if (isLoading) {
     return <p>Loading ...</p>;
   }
 
